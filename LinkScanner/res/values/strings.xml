@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">LinkScanner</string>
+<string name="no_internet">Sorry, you need internet access!</string>
+<string name="no_connection">No Connection</string>
+<string name="ok">OK</string>
+<string name="nolinks">No links found...Please check the URL you provided!</string>
+<string name="noresults">No Results</string>
+<string name="links">Links</string>
+</resources>

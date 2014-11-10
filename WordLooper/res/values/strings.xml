@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WordLooper</string>
+    <string name="SRV">130.229.184.201</string>
+    <string name="SRV_PORT">4545</string>
+</resources>
