@@ -1,5 +1,6 @@
 package se.kth.id2212.ex5.linkscanner;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -135,7 +136,8 @@ public class MainActivity extends Activity
         }
     }
 
-    private class DisplayLinksDialog extends DialogFragment
+    @SuppressLint("ValidFragment")
+	private class DisplayLinksDialog extends DialogFragment
     {
         private final String msg;
         private final List<PageLink> links;

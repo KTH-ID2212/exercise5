@@ -1,10 +1,6 @@
 package com.example.WordLooper;
 
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -18,11 +14,10 @@ public class ServerConnection implements Runnable
     private final String host;
     private final int port;
     protected final ResultAppender gui;
-    private final LinkedBlockingQueue<String> strings =
+    private final LinkedBlockingQueue<String> str =
             new LinkedBlockingQueue<>();
     private BufferedInputStream in;
     private BufferedOutputStream out;
-    private Handler uiHandler;
 
     /**
      * Creates a new instance. Does not connect to the server.
@@ -36,19 +31,6 @@ public class ServerConnection implements Runnable
         this.host = host;
         this.port = port;
         this.gui = gui;
-
-        this.uiHandler = new Handler(Looper.getMainLooper())
-        {
-            @Override
-            public void handleMessage(Message msg)
-            {
-                if (msg.what == SHOW_UI)
-                {
-                    gui.showResult((String) msg.obj);
-                } else
-                    super.handleMessage(msg);
-            }
-        };
     }
 
     /**
@@ -93,7 +75,7 @@ public class ServerConnection implements Runnable
      */
     void reverse(String text)
     {
-        strings.add(text);
+        str.add(text);
     }
 
     /**
@@ -105,7 +87,7 @@ public class ServerConnection implements Runnable
         String result;
         try
         {
-            byte[] toServer = strings.take().getBytes();
+            byte[] toServer = str.take().getBytes();
             out.write(toServer, 0, toServer.length);
             out.flush();
             byte[] fromServer = new byte[toServer.length];
@@ -122,7 +104,6 @@ public class ServerConnection implements Runnable
             result = "Failed to reverse, " + e.getMessage();
         }
 
-        Message msg = uiHandler.obtainMessage(SHOW_UI, result);
-        msg.sendToTarget();
+        gui.showResult(result);
     }
 }
